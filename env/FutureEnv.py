@@ -45,11 +45,12 @@ class FutureTradingEnv(gym.Env):
         self.std_dir = {}
         self.mean_dir = {}
         for i in index_:
-            if i != 'date':
+            if i not in ['date','month','weekday','hour','minute']:
                 self.mean_dir[f'{i}_mean'] = self.df[i].mean()
                 self.std_dir[f'{i}_std'] = self.df[i].std()
 
     def _next_observation(self):
+        #返回最近120步的信息
         self.df.loc[self.current_step + self.start_time, 'balance'] = self.balance / 10000
         self.df.loc[self.current_step + self.start_time, 'shares_held'] = self.shares_held
         self.df.loc[self.current_step + self.start_time, 'cost_basis'] = self.cost_basis / 3000

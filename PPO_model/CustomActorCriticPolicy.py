@@ -6,6 +6,8 @@ from torch import nn
 
 from stable_baselines3 import PPO
 from stable_baselines3.common.policies import ActorCriticPolicy
+from stable_baselines3.common.torch_layers import MlpExtractor
+
 
 class CustomNetwork(nn.Module):
     """
@@ -104,7 +106,7 @@ import gym
 import torch.nn as nn
 
 from stable_baselines3 import PPO
-from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
+from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, MlpExtractor
 
 
 class CustomRNN(BaseFeaturesExtractor):
@@ -140,9 +142,3 @@ class CustomRNN(BaseFeaturesExtractor):
 # model = PPO_model("CnnPolicy", "BreakoutNoFrameskip-v4", policy_kwargs=policy_kwargs, verbose=1)
 # model.learn(1000)
 
-def policy_kwargs():
-    policy_kwargs = dict(
-        features_extractor_class=CustomRNN,
-        features_extractor_kwargs=dict(features_dim=128),
-    )
-    return policy_kwargs
